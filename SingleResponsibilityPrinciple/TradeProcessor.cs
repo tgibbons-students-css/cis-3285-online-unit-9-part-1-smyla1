@@ -91,9 +91,15 @@ namespace SingleResponsibilityPrinciple
             return true;
         }
 
-        private void LogMessage(string msgType, string message, params object[] args)
+        private void LogMessage(string type, string message, params object[] args)
         {
-            Console.WriteLine(msgType+ " :" +message, args);
+            Console.WriteLine(type + " :" +message, args);
+
+            // Updated the LogMessage Pattern
+            using (StreamWriter logfile = File.AppendText("log.xml"))
+            {
+                logfile.WriteLine("<log><type>" + type + "</type><message>" + message + "</message></log> ", args);
+            }
         }
 
         private TradeRecord MapTradeDataToTradeRecord(string[] fields)
